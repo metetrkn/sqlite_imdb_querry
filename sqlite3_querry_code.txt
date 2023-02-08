@@ -1,0 +1,15 @@
+sqlite> SELECT DISTINCT(name) 
+	FROM people JOIN stars 
+	ON people.id=stars.person_id
+	WHERE movie_id IN    		-- display all star's names which if movie id in that list 
+	
+		(SELECT id 
+		 FROM movies JOIN stars 
+		 ON movies.id=stars.movie_id
+		 WHERE person_id =  	-- list of all id of movies where stars id equal our target star
+		 
+			(SELECT id 
+			 FROM people 
+			 WHERE name='Kevin Bacon'
+			 AND birth=1958)); 	-- Kevin Bacon and his date of birth not to confuse with Kevin Bacons
+
